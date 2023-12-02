@@ -1,7 +1,7 @@
 import { getBLogById } from "@/lib/helpers";
 import prisma from "@/prisma";
 
-const BlogPage = async ({ params }) => {
+const BlogPage = async ({ params }: any) => {
 	const blog = await getBLogById(params.id);
 	console.log(blog);
 

@@ -26,7 +26,7 @@ export default async function page() {
 					{blogs &&
 						blogs
 							.sort(
-								(a, b) =>
+								(a: any, b: any) =>
 									Number(new Date(b.createdAt)) - Number(new Date(a.createdAt))
 							)
 							.map((blog: any) => {

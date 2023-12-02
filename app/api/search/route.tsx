@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import queryString from "query-string";
 import { connectToDb } from "@/lib/helpers";
 
-export async function GET(req) {
+export async function GET(req: any) {
 	try {
 		await connectToDb();
 		const { searchQuery } = queryString.parseUrl(req.url).query; // "nextjs 13 app"
