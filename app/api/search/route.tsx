@@ -1,3 +1,5 @@
+//@ts-ignore
+
 import prisma from "@/prisma";
 import { NextResponse } from "next/server";
 import queryString from "query-string";
@@ -11,9 +13,10 @@ export async function GET(req: any) {
 		const blogs = await prisma.blog.findMany({
 			where: {
 				OR: [
-					{ title: { contains: searchQuery || "" } },
-					{ location: { contains: searchQuery || "" } },
-					{ description: { contains: searchQuery || "" } },
+					//@ts-ignore
+					{ title: { contains: searchQuery || "" } }, //@ts-ignore
+					{ location: { contains: searchQuery || "" } }, //@ts-ignore
+					{ description: { contains: searchQuery || "" } }, //@ts-ignore
 				],
 			},
 		});

@@ -12,10 +12,10 @@ git branch -M main
 git remote add origin git@github.com:FREAKIN-D1A/dewanblog-mew-saas.git
 git push -u origin main
 
+
+
+--------------------------------
 git add . &&
-
 git status &&
-
-git commit -m "fifth commit" &&
-
+git commit -m "6th commit" &&
 git push -u origin main
