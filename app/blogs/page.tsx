@@ -2,7 +2,8 @@ import BlogItem from "@/components/BlogItem";
 import { getAllBlogs } from "@/lib/helpers";
 import { getServerSession } from "next-auth";
 import React from "react";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/authOptionsFile";
+// import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function page() {
 	const data = await getServerSession(authOptions);
