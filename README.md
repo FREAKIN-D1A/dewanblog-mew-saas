@@ -17,5 +17,5 @@ git push -u origin main
 --------------------------------
 git add . &&
 git status &&
-git commit -m "6th commit" &&
+git commit -m "7th commit" &&
 git push -u origin main

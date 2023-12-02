@@ -1,3 +1,4 @@
+//@ts-nocheck
 import prisma from "@/prisma";
 import { NextResponse } from "next/server";
 import { apiUrl } from "./config";

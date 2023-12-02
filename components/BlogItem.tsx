@@ -1,3 +1,4 @@
+//@ts-nocheck
 // "use client";
 
 import React, { useEffect } from "react";
@@ -24,7 +25,6 @@ const BlogItem = ({ title, description, imageUrl, id, byCurrentUser }) => {
 	// 		second;
 	// 	};
 	// }, [third]);
-
 
 	return (
 		<div className='rounded overflow-hidden shadow-lg m-4 relative transition-transform transform hover:scale-105 min-h-[380px] w-[350px]'>

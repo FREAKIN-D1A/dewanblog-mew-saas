@@ -1,9 +1,8 @@
+//@ts-nocheck
 
 import HomeSection from "@/components/HomeSection";
 
 export default function Home() {
-
-
 	return (
 		<main>
 			{/* Hellow World

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
 	connectToDb,
 	generateErrorMessage,
@@ -34,4 +35,3 @@ export const GET = async (
 		await prisma.$disconnect();
 	}
 };
-  

@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";

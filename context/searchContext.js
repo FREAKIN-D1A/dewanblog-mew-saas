@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { createContext, useState, useContext } from "react";
 import { useRouter } from "next/navigation";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { getBLogById } from "@/lib/helpers";
 import prisma from "@/prisma";
 

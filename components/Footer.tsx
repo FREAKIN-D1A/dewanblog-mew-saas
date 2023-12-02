@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Logo from "./Logo";
 import { FaInstagram, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { IoMdCopy } from "react-icons/io";

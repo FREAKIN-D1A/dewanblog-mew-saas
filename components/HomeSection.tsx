@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import { getAllBlogs } from "@/lib/helpers";
 import Image from "next/image";

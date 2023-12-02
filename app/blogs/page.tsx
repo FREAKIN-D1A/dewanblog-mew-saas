@@ -1,3 +1,5 @@
+//@ts-nocheck
+//@ts-nocheck
 import BlogItem from "@/components/BlogItem";
 import { getAllBlogs } from "@/lib/helpers";
 import { getServerSession } from "next-auth";

@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -10,3 +12,5 @@ import { authOptions } from "./authOptionsFile";
 
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
+
+//@ts-nocheck

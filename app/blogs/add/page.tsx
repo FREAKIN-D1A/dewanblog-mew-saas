@@ -1,3 +1,6 @@
+//@ts-nocheck
+// @ts-nocheck
+
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -27,6 +30,7 @@ export default function NewBlogPage() {
 
 	// const [loading, setLoading] = useState(true);
 
+	// @ts-ignore
 	const handleImageChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {

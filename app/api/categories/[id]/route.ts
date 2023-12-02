@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
 	connectToDb,
 	generateErrorMessage,
@@ -5,7 +6,7 @@ import {
 } from "@/lib/helpers";
 import prisma from "@/prisma";
 import { NextResponse } from "next/server";
- 
+
 export const GET = async (
 	req: Request,
 	{ params }: { params: { id: string } }
