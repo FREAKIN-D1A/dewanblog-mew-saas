@@ -1,60 +1,28 @@
-// @ts-nocheck
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 import { apiUrl } from "@/lib/config";
 import { fetchCategories } from "@/lib/stuff";
-import { getBLogById } from "@/lib/helpers";
+import { useSession } from "next-auth/react";
 
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
-export default function Editpage({ params: { id } }) {
+export default function NewBLogPage() {
 	const { data: session } = useSession();
 	const router = useRouter();
 
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [location, setLocation] = useState("");
-
+	const [image, setImage] = useState("");
 	const [imageUrl, setImageUrl] = useState("");
 	const [categoryId, setCategoryId] = useState("");
 
+	// let categories = [];
 	const [categories, setCategories] = useState([]);
-
-	useEffect(() => {
-		const populate = async () => {
-			try {
-				const fetchedCategories = await fetchCategories();
-				const blog = await getBLogById(id);
-
-				// categories = fetchedCategories;
-				setCategories(fetchedCategories);
-
-				// console.log("===============================\n\n");
-				// console.log(fetchedCategories);
-				// console.log("fetchedCategories data => ", categories.length);
-				// console.log("===============================\n\n");
-
-				setTitle(blog.title);
-				setContent(blog.description);
-				setLocation(blog.location);
-				setImageUrl(blog.imageUrl);
-				setCategoryId(blog.categoryId);
-
-				// console.log("=================================\n\n");
-				// console.log("blog ::>>> ", blog);
-				// console.log("=================================\n\n");
-			} catch (error) {
-				console.error("Error fetching:", error.message);
-				// Handle error (display error message, etc.)
-			}
-		};
-		populate();
-	}, []);
 
 	const handleImageChange = async (e) => {
 		const file = e.target.files[0];
@@ -87,43 +55,8 @@ export default function Editpage({ params: { id } }) {
 		}
 	};
 
-	const handleDelelte = async () => {
-		try {
-			console.log("\n\n\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			console.log("DELETE CLICKED");
-			console.log("\n\n\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			console.log("id  ======>>\n", id);
-			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>\n\n\n\n");
-
-			const res = await fetch(`${apiUrl}/blogs/${id}`, {
-				method: "DELETE",
-				// body: postData,
-				// cache: "no-store",
-			});
-
-			if (res.ok) {
-				const data = await res.json();
-
-				router.push("/");
-			}
-
-			// console.log("\n\n\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			// console.log("data  ======>>\n", data);
-			// console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>\n\n\n\n");
-		} catch (error) {
-			console.log(error);
-			console.log(error.message);
-		}
-	};
-
 	// submit to create blog api
 	const handleSubmit = async (e) => {
-		console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<");
-		console.log("handleSubmit CLICKED");
-		console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n");
-		console.log("id  ======>>\n", id);
-		console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>\n\n");
-
 		const postData = JSON.stringify({
 			title: title,
 			description: content,
@@ -134,27 +67,60 @@ export default function Editpage({ params: { id } }) {
 			// imageFile: imageFile,
 		});
 
+		// console.log("first post data");
+		// console.log(postData);
+
 		const formData = new FormData();
 		formData.append("postData", postData);
 
-		console.log("<<<<<<<<<<<<<<<<<<\n\n");
-		console.log("formData updated ======>>", formData);
-		console.log(">>>>>>>>>>>>>>>>>>\n\n");
+		console.log(`${apiUrl}/blogs`);
+		const response = await fetch(`${apiUrl}/blogs`, {
+			method: "POST",
+			body: formData,
+		});
 
-		try {
-			const res = await fetch(`${apiUrl}/blogs/${id}`, {
-				method: "PUT",
-				body: formData,
-				cache: "no-store",
-			});
-			const data = await res.json();
-			console.log(data);
-			router.push(`/`);
-		} catch (error) {
-			console.log(error);
-			console.log(error.message);
-		}
+		// if (response.ok) {
+		const data = await response.json();
+		console.log("=================================");
+		console.log("response data => ");
+		console.log(data);
+		console.log("=================================");
+
+		router.push(`/`);
+
+		// router.push("");
+		// } else {
+		// 	const errorData = await response.json();
+
+		// 	console.log("=================================");
+		// 	console.log("errorData data => ");
+		// 	console.log(errorData);
+		// 	console.log("=================================");
+		// }
+
+		// console.log(err);
+		// toast.error("An error occurred. Try again.");
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const fetchedCategories = await fetchCategories();
+				// categories = fetchedCategories;
+				setCategories(fetchedCategories);
+
+				console.log("=================================");
+				console.log(fetchedCategories);
+				console.log("fetchedCategories data => ", categories.length);
+				console.log("=================================");
+			} catch (error) {
+				console.error("Error fetching categories:", error.message);
+				// Handle error (display error message, etc.)
+			}
+		};
+
+		fetchData();
+	}, []);
 
 	return (
 		<div className='container mx-auto mt-8'>
@@ -211,10 +177,7 @@ export default function Editpage({ params: { id } }) {
 							className='mt-1 p-2 border rounded-md'>
 							{Array.isArray(categories) &&
 								categories.map((item) => (
-									<option
-										key={item.id}
-										value={item.id}
-										selected={item.id == categoryId}>
+									<option key={item.id} value={item.id}>
 										{item?.name}
 									</option>
 								))}
@@ -267,12 +230,6 @@ export default function Editpage({ params: { id } }) {
 					Submit
 				</button>
 			</form>
-
-			<button
-				onClick={handleDelelte}
-				className='w-full my-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600'>
-				Delete
-			</button>
 		</div>
 	);
 }

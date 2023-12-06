@@ -48,18 +48,38 @@ const uploadImageOLD = async (file: Blob) => {
 
 export const POST = async (req: Request) => {
 	try {
-		// console.log("entered post\n===============================\n");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("endtered submit route");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
 
 		const formData = await req.formData();
-		const { title, description, location, userId, categoryId } = JSON.parse(
-			formData.get("postData") as string
-		);
+
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("endtered submit route. formData : >>>");
+		console.log(formData);
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+
+		const { title, description, location, userId, categoryId, imageUrl } =
+			JSON.parse(formData.get("postData") as string);
+		// JSON.parse(formData);
+
 		if (!title || !description || !location || !userId || !categoryId) {
 			return NextResponse.json(
-				{ message: "Invalid data", formData },
+				{ message: "Invalid data", ...formData.get("postData") },
 				{ status: 422 }
 			);
 		}
+
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("checking =......", {
+			title,
+			description,
+			location,
+			userId,
+			categoryId,
+			imageUrl,
+		});
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
 
 		const user = await prisma.user.findFirst({ where: { id: userId } });
 		const category = await prisma.category.findFirst({
@@ -73,35 +93,9 @@ export const POST = async (req: Request) => {
 			);
 		}
 
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-\n");
-		// console.log(formData);
-		// console.log("formData done");
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-\n");
-
-		v2.config({
-			cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-			api_secret: process.env.CLOUDINARY_API_SECRET,
-			api_key: process.env.CLOUDINARY_API_KEY,
-		});
-
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
-		// // console.log(uploadedFile);
-		// console.log("config done");
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
-
-		const file = formData.get("image") as Blob | null;
-		let uploadedFile: UploadApiResponse | null = null;
-
-		if (file) {
-			uploadedFile = await uploadImageOLD(file);
-		} else {
-			uploadedFile = null;
-		}
-
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
-		// console.log(uploadedFile);
-		// console.log("uploadedFile done");
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("checking done");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
 
 		const uploadData = {
 			title,
@@ -109,25 +103,22 @@ export const POST = async (req: Request) => {
 			location,
 			userId,
 			categoryId,
-			imageUrl: uploadedFile?.url ?? null,
+			imageUrl,
 		};
-
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
-		// console.log(uploadData);
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
 
 		const blog = await prisma.blog.create({
 			data: uploadData,
 		});
 
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
-		// console.log(blog);
-		// console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
+		console.log("creating blog done.....>>>");
+		console.log("blog");
+		console.log("-=-=-=-=--=-=-=-=--=-=-=-=-=-=-=-=-");
 
 		return NextResponse.json({ message: "blog data", blog }, { status: 201 });
 	} catch (error) {
 		return NextResponse.json(
-			{ message: "error. blogs POST", error },
+			{ message: "error. blogs....... POST", error },
 			{ status: 500 }
 		);
 	} finally {

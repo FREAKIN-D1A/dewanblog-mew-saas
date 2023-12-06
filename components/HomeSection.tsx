@@ -45,10 +45,11 @@ export default function HomeSection() {
 					className='rounded-md mb-8'
 				/> */}
 				<div className='m-4'>
-					<h1 className='text-xl font-bold leading-tight mb-4'>
-						Howdy, {data?.user.name}
-						{/* Howdy, {JSON.stringify(data?.user.name)} */}
-					</h1>
+					{data?.user.name ? (
+						<h1 className='text-xl font-bold leading-tight mb-4'>
+							Howdy, {data?.user.name}
+						</h1>
+					) : null}
 					<h1 className='text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4'>
 						Welcome to DBlog
 					</h1>
