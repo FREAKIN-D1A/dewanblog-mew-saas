@@ -1,8 +1,7 @@
 console.log("searchQuery +=+=+=+==+>>>");
 console.log("searchQuery);
 
-https://dewanblog-mew-saas-wikc.vercel.app/
-https://dewanblog-mew-saas-wikc-4ipb73agj-freakin-d1a.vercel.app/
+https://dewanblog-mew-saas.vercel.app/
 
 git init
 git add .
@@ -13,9 +12,10 @@ git remote add origin git@github.com:FREAKIN-D1A/dewanblog-mew-saas.git
 git push -u origin main
 
 ---
+
 git add . &&
 git status &&
-git commit -m "15th commit" &&
+git commit -m "18th commit" &&
 git push -u origin main
 
 // "build": "next build",
