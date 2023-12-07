@@ -15,7 +15,7 @@ git push -u origin main
 ---
 git add . &&
 git status &&
-git commit -m "12th commit" &&
+git commit -m "15th commit" &&
 git push -u origin main
 
 // "build": "next build",

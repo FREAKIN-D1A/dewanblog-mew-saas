@@ -1,47 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-function corsMiddleware(handler: any) {
-	return async (req: NextApiRequest, res: NextApiResponse) => {
-		const origin = req.headers.origin ?? "*";
-		const allowedMethods = [
-			"GET",
-			"HEAD",
-			"OPTIONS",
-			"PUT",
-			"PATCH",
-			"POST",
-			"DELETE",
-		];
-		const allowedHeaders = [
-			"Content-Type",
-			"Authorization",
-			"Origin",
-			"Accept",
-		];
+export function middleware() {
+	// retrieve the current response
+	const res = NextResponse.next();
 
-		res.setHeader("Access-Control-Allow-Origin", origin);
-		res.setHeader("Access-Control-Allow-Methods", allowedMethods.join(","));
-		res.setHeader("Access-Control-Allow-Headers", allowedHeaders.join(","));
+	// add the CORS headers to the response
+	res.headers.append("Access-Control-Allow-Credentials", "true");
+	res.headers.append("Access-Control-Allow-Origin", "*"); // replace this your actual origin
+	res.headers.append(
+		"Access-Control-Allow-Methods",
+		"GET,DELETE,PATCH,POST,PUT"
+	);
+	res.headers.append(
+		"Access-Control-Allow-Headers",
+		"X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+	);
 
-		if (req.method === "OPTIONS") {
-			return res.status(200).send("OK");
-		}
-
-		return handler(req, res);
-	};
+	return res;
 }
 
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse
-) {
-	// Your API logic here...
-	res.status(200).json({ message: "Hello, world! from middleware." });
-}
-
+// specify the path regex to apply the middleware to
 export const config = {
-	api: {
-		middlewares: [corsMiddleware],
-	},
-	matcher: `/api:path*`,
+	matcher: "/api/:path*",
 };
