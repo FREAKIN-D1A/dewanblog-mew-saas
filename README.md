@@ -13,10 +13,9 @@ git remote add origin git@github.com:FREAKIN-D1A/dewanblog-mew-saas.git
 git push -u origin main
 
 ---
-
 git add . &&
 git status &&
 git commit -m "12th commit" &&
 git push -u origin main
 
-    // "build": "next build",
+// "build": "next build",

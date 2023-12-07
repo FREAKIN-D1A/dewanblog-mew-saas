@@ -54,11 +54,9 @@ export default function HomeSection() {
 						Welcome to DBlog
 					</h1>
 					<p className='text-base md:text-lg lg:text-xl'>
-						The Dewan Appreciation blog. Your platform to show your appreciation
-						for Dewan and only. As he can be sometimes a little too humble, you
-						have the oppertunity to show how grateful you are to have him.{" "}
+						Share your thoughts....
 						<br />
-						Register or Login to share your appreciation.
+						Register or Login to write a new blog.
 					</p>
 				</div>
 			</div>
