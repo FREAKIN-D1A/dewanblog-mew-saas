@@ -34,11 +34,15 @@ export default function NewBLogPage() {
 			formData.append("file", file);
 			// formData.append("upload_preset", process.env.CLOUDINARY_UPLOAD_PRESET);
 
+			console.log("\n\n-=-=-=-=--==-=--=-=-=-=--=-=");
 			console.log("FormData.file: ---------->");
 			console.log(formData.get("file"));
+			console.log("\n\n-=-=-=-=--==-=--=-=-=-=--=-=");
 
 			// upload to cloudinary
 			try {
+				console.log("FormData.file: ---------->");
+				console.log(formData.get("file"));
 				const response = await fetch(`${apiUrl}/blogs/upload-img`, {
 					method: "POST",
 					body: formData,

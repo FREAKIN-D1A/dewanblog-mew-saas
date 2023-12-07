@@ -13,12 +13,14 @@ const authLinks = [
 	// { id: "1-3", name: "Profile", url: "/profile" },
 	// { id: "1-4", name: "Search", url: "/search" },
 ];
+
 const noAuthLinks = [
 	{ id: "2-1", name: "Blogs", url: "/blogs" },
 	{ id: "2-2", name: "Login", url: "/login" },
 	{ id: "2-3", name: "Register", url: "/register" },
 	// { name: 'Search', url: '/search' },
 ];
+
 const Appbar: React.FC = () => {
 	const { data, status, update } = useSession();
 	// console.log({ data, status, update });
@@ -29,7 +31,7 @@ const Appbar: React.FC = () => {
 	const links = status === "authenticated" ? authLinks : noAuthLinks;
 
 	return (
-		<section className='sticky top-0 bg-gray-100'>
+		<section className='sticky top-0 bg-gray-100 z-50'>
 			<nav className='flex items-center justify-between px-4 md:px-8 py-4 '>
 				<div className='container mx-auto flex justify-between items-center'>
 					<Logo />
